@@ -17,12 +17,10 @@ class Aerolineas(models.Model):
     año_fundacion = models.IntegerField()
 
 class Vuelos(models.Model):
-    aerolinea_nombre = models.CharField(max_length=50)
     aerolinea_siglas = models.CharField(max_length=10)
-    vuelo_numero = models.IntegerField()
-    vuelo_siglas = models.CharField(max_length=15)
+    vuelo_numero = models.CharField(max_length=10)
     fecha_vuelo = models.DateField()
     hora_vuelo = models.IntegerField()
     aeropuerto_origen = models.CharField(max_length=5)
     aeropuerto_destino = models.CharField(max_length=5)
-    duracion_vuelo = models.FloatField()
+    duracion_vuelo = models.IntegerField()
