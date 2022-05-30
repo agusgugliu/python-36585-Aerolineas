@@ -1,0 +1,55 @@
+{% extends "AppAerolineas/00_index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<div class="container">    
+  
+  <div class="row">
+    <div class="col">
+      {% url 'aeropuertos_add' as agregar_url %}
+      {% url 'pais_aerop_search' as buscarpais_url %}
+      {% url 'estado_aerop_search' as buscarprov_url %}
+      {% bootstrap_button "NUEVO" button_class="btn-success" button_type="link" href=agregar_url %} 
+      {% bootstrap_button "BUSCAR" button_class="btn-success" button_type="link" href=buscarpais_url %}  
+      {% bootstrap_button "BUSCAR" button_class="btn-success" button_type="link" href=buscarprov_url %}  
+    <div>
+  <div>
+
+  <div class="row">
+    <div class="col">
+        {% if aeropuertos %}
+        <table class="table">
+            <thead>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">SIGLAS</th>
+                <th scope="col">PAIS</th>
+                <th scope="col">PROVINCIA</th>
+                <th scope="col">INTERNACIONAL</th>
+                <th scope="col">AÑO INAUGURACION</th>
+            </thead>
+        
+            {% for a in aeropuertos %}
+            <tbody>
+                <tr>
+                    <th scope="row">{{a.id}} </th>
+                    <td> {{a.nombre}} </td>
+                    <td> {{a.siglas}} </td>
+                    <td> {{a.pais}} </td>
+                    <td> {{a.estado}} </td>
+                    <td> {{a.internacional}} </td>
+                    <td> {{a.año_inauguracion}} </td>
+                    {% url 'aeropuertos_delete' identificador=a.id as borrar_url %}
+                    <td>{% bootstrap_button "BORRAR" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}</td>
+                </tr>  
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No tiene aeropuertos cargados</p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
