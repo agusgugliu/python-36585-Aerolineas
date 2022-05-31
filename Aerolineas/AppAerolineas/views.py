@@ -2,8 +2,8 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from AppAerolineas.models import Aeropuertos, Aerolineas, Vuelos
-from AppAerolineas.forms import AeropuertosForm, BuscarPaisForm, BuscarProvinciaForm, AerolineasForm, BuscarAlianzaForm, VuelosForm, BuscarVueloForm, BuscarOrigenForm, BuscarDestinoForm
+from AppAerolineas.models import Aeropuertos
+from AppAerolineas.forms import AeropuertosForm, BuscarPaisForm, BuscarProvinciaForm
 #-----------------------------
 #-----------------------------
 # INICIO
@@ -19,7 +19,7 @@ def aeropuertos_list(request):
     aeropuerto = Aeropuertos.objects.all()
     template = loader.get_template('AppAerolineas/02_1_aeropuerto_list.html')
     context = {
-        'aeropuerto':aeropuerto
+        'aeropuertos':aeropuerto,
     }
     return HttpResponse(template.render(context,request))
 
@@ -36,7 +36,7 @@ def aeropuertos_add(request):
             internacional = form.cleaned_data['internacional']
             año_inauguracion = form.cleaned_data['año_inauguracion']
             
-            Aeropuertos(nombre=nombre, siglas=siglas, pais=pais, estado=estado, internacional=internacional, año_inauguracion=año_inauguracion).save()
+            Aeropuertos(nombre=nombre.title(), siglas=siglas.upper(), pais=pais.upper(), estado=estado.title(), internacional=internacional.upper(), año_inauguracion=año_inauguracion).save()
             
             return HttpResponseRedirect('/aeropuertos/')
     
@@ -64,23 +64,23 @@ def aeropuertos_delete(request,identity):
 def pais_aerop_search(request):
     if request.method == "GET":
         search_form = BuscarPaisForm()
-        return render(request, 'AppAerolineas/02_3_aeropuerto_search.html', {'search_form':search_form})
+        return render(request, 'AppAerolineas/02_3_aeropuerto_search_pais.html', {'search_form':search_form})
     elif request.method == "POST":
         search_form = BuscarPaisForm(request.POST)
         if search_form.is_valid():
             pais_a_buscar = search_form.cleaned_data['pais_a_buscar']
             paises = Aeropuertos.objects.filter(pais__icontains=pais_a_buscar)
-        return render(request, 'AppAerolineas/02_1_aeropuerto_list.html', {'paises':paises})
+        return render(request, 'AppAerolineas/02_1_aeropuerto_list.html', {'aeropuertos':paises})
 
 
 
-def estado_aerop_search(request):
+def prov_aerop_search(request):
     if request.method == "GET":
-        search_form = BuscarPaisForm()
-        return render(request, 'AppAerolineas/02_3_aeropuerto_search.html', {'search_form':search_form})
+        prov_form = BuscarProvinciaForm()
+        return render(request, 'AppAerolineas/02_4_aeropuerto_search_provincia.html', {'prov_form':prov_form})
     elif request.method == "POST":
-        search_form = BuscarProvinciaForm(request.POST)
-        if search_form.is_valid():
-            provincia_a_buscar = search_form.cleaned_data['provincia_a_buscar']
+        prov_form = BuscarProvinciaForm(request.POST)
+        if prov_form.is_valid():
+            provincia_a_buscar = prov_form.cleaned_data['provincia_a_buscar']
             provincias = Aeropuertos.objects.filter(estado__icontains=provincia_a_buscar)
-        return render(request, 'AppAerolineas/02_1_aeropuerto_list.html', {'provincias':provincias})
+        return render(request, 'AppAerolineas/02_1_aeropuerto_list.html', {'aeropuertos':provincias})

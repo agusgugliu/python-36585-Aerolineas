@@ -4,7 +4,7 @@ from django import forms
 #-----------------------
 # AEROPUERTOS
 class AeropuertosForm(forms.Form):
-    nombre = forms.CharField(label="Nombre del Aeropuerto", max_length=50)
+    nombre = forms.CharField(label="Nombre del Aeropuerto", max_length=100)
     siglas = forms.CharField(label="Siglas del Aeropuerto", max_length=5)
     pais = forms.CharField(label="País del Aeropuerto", max_length=50)
     estado = forms.CharField(label="Provincia del Aeropuerto", max_length=50)
@@ -15,7 +15,7 @@ class BuscarPaisForm(forms.Form):
     pais_a_buscar = forms.CharField(label="Buscar Pais", max_length=50)
 
 class BuscarProvinciaForm(forms.Form):
-    pais_a_buscar = forms.CharField(label="Buscar Provincia", max_length=50)
+    provincia_a_buscar = forms.CharField(label="Buscar Provincia", max_length=50)
 
 #-----------------------
 # AEROLINEAS

@@ -1,0 +1,23 @@
+{% extends "AppAerolineas/00_index.html" %}
+{% load bootstrap5 %}
+
+
+
+{% block cuerpo %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>BUSCAR PROVINCIA</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'prov_aerop_search'%}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form prov_form %}
+                {% bootstrap_button "BUSCAR" button_type="submit" button_class="btn-primary" %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

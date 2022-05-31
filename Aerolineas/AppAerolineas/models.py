@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Aeropuertos(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
     siglas = models.CharField(max_length=5)
     pais = models.CharField(max_length=50)
     estado = models.CharField(max_length=50)

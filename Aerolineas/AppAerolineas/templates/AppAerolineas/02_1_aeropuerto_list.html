@@ -9,7 +9,7 @@
     <div class="col">
       {% url 'agregar_aeropuerto' as agregar_url %}
       {% url 'pais_aerop_search' as buscarpais_url %}
-      {% url 'estado_aerop_search' as buscarprov_url %}
+      {% url 'prov_aerop_search' as buscarprov_url %}
       {% bootstrap_button "NUEVO" button_class="btn-success" button_type="link" href=agregar_url %} 
       {% bootstrap_button "BUSCAR PAIS" button_class="btn-success" button_type="link" href=buscarpais_url %}  
       {% bootstrap_button "BUSCAR PROVINCIA" button_class="btn-success" button_type="link" href=buscarprov_url %}  
