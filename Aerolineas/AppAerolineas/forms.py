@@ -8,7 +8,7 @@ class AeropuertosForm(forms.Form):
     siglas = forms.CharField(label="Siglas del Aeropuerto", max_length=5)
     pais = forms.CharField(label="País del Aeropuerto", max_length=50)
     estado = forms.CharField(label="Provincia del Aeropuerto", max_length=50)
-    internacional = forms.BooleanField(label="¿Es internacional?")
+    internacional = forms.CharField(label="¿Es internacional? [SI/NO]", max_length=5)
     año_inauguracion = forms.IntegerField(label="Año de Inauguración del Aeropuerto", widget=forms.NumberInput(attrs={'placeholder':1900}))
 
 class BuscarPaisForm(forms.Form):

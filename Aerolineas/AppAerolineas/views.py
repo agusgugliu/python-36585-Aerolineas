@@ -18,8 +18,12 @@ def inicio(request):
 def aeropuertos_list(request):
     aeropuerto = Aeropuertos.objects.all()
     template = loader.get_template('AppAerolineas/02_1_aeropuerto_list.html')
-    context = {'aeropuerto':aeropuerto}
+    context = {
+        'aeropuerto':aeropuerto
+    }
     return HttpResponse(template.render(context,request))
+
+
 
 def aeropuertos_add(request):
     if request.method == "POST":
@@ -31,13 +35,20 @@ def aeropuertos_add(request):
             estado = form.cleaned_data['estado']
             internacional = form.cleaned_data['internacional']
             año_inauguracion = form.cleaned_data['año_inauguracion']
+            
             Aeropuertos(nombre=nombre, siglas=siglas, pais=pais, estado=estado, internacional=internacional, año_inauguracion=año_inauguracion).save()
+            
             return HttpResponseRedirect('/aeropuertos/')
+    
     elif request.method == "GET":
         form = AeropuertosForm()
+    
     else:
-        return HttpResponseBadRequest('¡ERROR!\nNo conozco el método para este request.')
+        return HttpResponseBadRequest('¡ERROR! No conozco el método para este request.')
+    
     return render(request, 'AppAerolineas/02_2_aeropuerto_load.html', {'form':form})
+
+
 
 def aeropuertos_delete(request,identity):
     if request.method == "GET":
@@ -47,6 +58,8 @@ def aeropuertos_delete(request,identity):
         return HttpResponseRedirect('/aeropuertos/')
     else:
         return HttpResponseBadRequest('¡ERROR!\nNo conozco el método para este request.')
+
+
 
 def pais_aerop_search(request):
     if request.method == "GET":
@@ -58,6 +71,8 @@ def pais_aerop_search(request):
             pais_a_buscar = search_form.cleaned_data['pais_a_buscar']
             paises = Aeropuertos.objects.filter(pais__icontains=pais_a_buscar)
         return render(request, 'AppAerolineas/02_1_aeropuerto_list.html', {'paises':paises})
+
+
 
 def estado_aerop_search(request):
     if request.method == "GET":

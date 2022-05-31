@@ -7,12 +7,12 @@
   
   <div class="row">
     <div class="col">
-      {% url 'aeropuertos_add' as agregar_url %}
+      {% url 'agregar_aeropuerto' as agregar_url %}
       {% url 'pais_aerop_search' as buscarpais_url %}
       {% url 'estado_aerop_search' as buscarprov_url %}
       {% bootstrap_button "NUEVO" button_class="btn-success" button_type="link" href=agregar_url %} 
-      {% bootstrap_button "BUSCAR" button_class="btn-success" button_type="link" href=buscarpais_url %}  
-      {% bootstrap_button "BUSCAR" button_class="btn-success" button_type="link" href=buscarprov_url %}  
+      {% bootstrap_button "BUSCAR PAIS" button_class="btn-success" button_type="link" href=buscarpais_url %}  
+      {% bootstrap_button "BUSCAR PROVINCIA" button_class="btn-success" button_type="link" href=buscarprov_url %}  
     <div>
   <div>
 
@@ -31,6 +31,7 @@
             </thead>
         
             {% for a in aeropuertos %}
+
             <tbody>
                 <tr>
                     <th scope="row">{{a.id}} </th>
@@ -47,7 +48,7 @@
             {% endfor %}
         </table>
         {% else %}
-            <p>No tiene aeropuertos cargados</p>
+            <p>NO TIENE AEROPUERTOS CARGADOS</p>
         {% endif %}
     </div>
   </div>

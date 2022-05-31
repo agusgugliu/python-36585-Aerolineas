@@ -6,7 +6,7 @@ class Aeropuertos(models.Model):
     siglas = models.CharField(max_length=5)
     pais = models.CharField(max_length=50)
     estado = models.CharField(max_length=50)
-    internacional = models.BooleanField()
+    internacional = models.CharField(max_length=5)
     año_inauguracion = models.IntegerField()
 
 class Aerolineas(models.Model):
