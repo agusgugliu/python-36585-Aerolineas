@@ -1,0 +1,22 @@
+{% extends "AppAerolineas/00_index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>NUEVA AEROLINEA</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="{% url 'agregar_aerolinea'%}" method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button "GUARDAR" button_type="submit" button_class="btn-primary" %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

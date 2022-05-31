@@ -1,0 +1,54 @@
+{% extends "AppAerolineas/00_index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<div class="container">    
+  
+  <div class="row">
+    <div class="col">
+      {% url 'agregar_aerolinea' as agregar_url %}
+      {% url 'alianza_aerolinea_search' as buscarpais_url %}
+      {% url 'pais_aerolinea_search' as buscarprov_url %}
+      {% bootstrap_button "NUEVO" button_class="btn-success" button_type="link" href=agregar_url %} 
+      {% bootstrap_button "BUSCAR ALIANZA" button_class="btn-success" button_type="link" href=buscarpais_url %}  
+      {% bootstrap_button "BUSCAR PAIS" button_class="btn-success" button_type="link" href=buscarprov_url %}  
+    <div>
+  <div>
+
+  <div class="row">
+    <div class="col">
+        {% if aerolineas %}
+        <table class="table">
+            <thead>
+                <th scope="col">ID</th>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">SIGLAS</th>
+                <th scope="col">PAIS</th>
+                <th scope="col">ALIANZA</th>
+                <th scope="col">AÑO FUNDACION</th>
+            </thead>
+        
+            {% for a in aerolineas %}
+
+            <tbody>
+                <tr>
+                    <th scope="row">{{a.id}} </th>
+                    <td> {{a.nombre}} </td>
+                    <td> {{a.siglas}} </td>
+                    <td> {{a.sede}} </td>
+                    <td> {{a.alianza}} </td>
+                    <td> {{a.año_fundacion}} </td>
+                    {% url 'aerolineas_delete' identificador=a.id as borrar_url %}
+                    <td>{% bootstrap_button "BORRAR" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}</td>
+                </tr>  
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>NO TIENE AEROLINEAS CARGADAS</p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

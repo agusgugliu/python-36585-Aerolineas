@@ -29,6 +29,9 @@ class AerolineasForm(forms.Form):
 class BuscarAlianzaForm(forms.Form):
     alianza_a_buscar = forms.CharField(label="Buscar Alianza", max_length=50)
 
+class BuscarPaisAerolineaForm(forms.Form):
+    pais_aerolinea_a_buscar = forms.CharField(label="Buscar País de la Aerolínea", max_length=50)
+
 #-----------------------
 # VUELOS
 class VuelosForm(forms.Form):
