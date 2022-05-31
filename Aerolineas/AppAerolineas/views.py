@@ -2,8 +2,8 @@
 from django.shortcuts import render
 from django.template import loader
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseRedirect
-from AppAerolineas.models import Aeropuertos, Aerolineas
-from AppAerolineas.forms import AeropuertosForm, BuscarPaisForm, BuscarProvinciaForm, AerolineasForm, BuscarPaisAerolineaForm, BuscarAlianzaForm
+from AppAerolineas.models import Aeropuertos, Aerolineas, Vuelos
+from AppAerolineas.forms import AeropuertosForm, BuscarPaisForm, BuscarProvinciaForm, AerolineasForm, BuscarPaisAerolineaForm, BuscarAlianzaForm, VuelosForm, BuscarVueloForm, BuscarOrigenForm, BuscarDestinoForm
 #-----------------------------
 #-----------------------------
 # INICIO
@@ -11,6 +11,7 @@ def inicio(request):
     template = loader.get_template('AppAerolineas/01_landing_page.html')
     context = {}
     return HttpResponse(template.render(context,request))
+
 
 
 #-----------------------------
@@ -86,6 +87,7 @@ def prov_aerop_search(request):
         return render(request, 'AppAerolineas/02_1_aeropuerto_list.html', {'aeropuertos':provincias})
 
 
+
 #-----------------------------
 # AEROLINEAS
 def aerolineas_list(request):
@@ -108,7 +110,7 @@ def aerolineas_add(request):
             alianza = form.cleaned_data['alianza']
             año_fundacion = form.cleaned_data['año_fundacion']
 
-            Aerolineas(nombre=nombre.title(), siglas=siglas.upper(), sede=sede.upper(), alianza=alianza, año_fundacion=año_fundacion).save()
+            Aerolineas(nombre=nombre.upper(), siglas=siglas.upper(), sede=sede.upper(), alianza=alianza, año_fundacion=año_fundacion).save()
 
             return HttpResponseRedirect('/aerolineas/')
         
@@ -156,3 +158,91 @@ def alianza_aerolinea_search(request):
             alianza_a_buscar = search_form.cleaned_data['alianza_a_buscar']
             alianzas_aerolineas = Aerolineas.objects.filter(alianza__icontains=alianza_a_buscar)
         return render(request, 'AppAerolineas/03_1_aerolinea_list.html', {'aerolineas':alianzas_aerolineas})
+
+
+
+#-----------------------------
+# VUELOS
+def vuelos_list(request):
+    vuelo = Vuelos.objects.all()
+    template = loader.get_template('AppAerolineas/04_1_vuelo_list.html')
+    context = {
+        'vuelos':vuelo,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+
+def vuelos_add(request):
+    if request.method == "POST":
+        form = VuelosForm(request.POST)
+        if form.is_valid():
+            aerolinea_siglas = form.cleaned_data['aerolinea_siglas']
+            vuelo_numero = form.cleaned_data['vuelo_numero']
+            fecha_vuelo = form.cleaned_data['fecha_vuelo']
+            hora_vuelo = form.cleaned_data['hora_vuelo']
+            aeropuerto_origen = form.cleaned_data['aeropuerto_origen']
+            aeropuerto_destino = form.cleaned_data['aeropuerto_destino']
+            duracion_vuelo = form.cleaned_data['duracion_vuelo']
+
+            Vuelos(aerolinea_siglas=aerolinea_siglas.upper(), vuelo_numero=vuelo_numero, fecha_vuelo=fecha_vuelo, hora_vuelo=hora_vuelo, aeropuerto_origen=aeropuerto_origen.upper(), aeropuerto_destino=aeropuerto_destino.upper(), duracion_vuelo=duracion_vuelo).save()
+
+            return HttpResponseRedirect('/vuelos/')
+
+    elif request.method == "GET":
+        form = VuelosForm()
+
+    else:
+        return HttpResponseBadRequest('¡ERROR!\nNo conozco el método para este request.')
+    
+    return render(request, 'AppAerolineas/04_2_vuelo_load.html', {'form':form})
+
+
+
+def vuelos_delete(request, identity):
+    if request.method == "GET":
+        vuelo = Vuelos.objects.filter(id=int(identity)).first()
+        if vuelo:
+            vuelo.delete()
+        return HttpResponseRedirect('/vuelos/')
+    else:
+        return HttpResponseBadRequest('¡ERROR!\nNo conozco el método para este request.')
+
+
+
+def vuelo_search(request):
+    if request.method == "GET":
+        search_form = BuscarVueloForm()
+        return render(request, 'AppAerolineas/04_3_vuelo_search_vuelo.html', {'search_form':search_form})
+    elif request.method == "POST":
+        search_form = BuscarVueloForm(request.POST)
+        if search_form.is_valid():
+            vuelo_a_buscar = search_form.cleaned_data['vuelo_a_buscar']
+            vuelos = Vuelos.objects.filter(vuelo_numero__icontains=vuelo_a_buscar)
+        return render(request, 'AppAerolineas/04_1_vuelo_list.html', {'vuelos':vuelos})
+
+
+
+def vuelo_origen_search(request):
+    if request.method == "GET":
+        search_form = BuscarOrigenForm()
+        return render(request, 'AppAerolineas/04_3_vuelo_search_origen.html', {'search_form':search_form})
+    elif request.method == "POST":
+        search_form = BuscarOrigenForm(request.POST)
+        if search_form.is_valid():
+            origen_a_buscar = search_form.cleaned_data['origen_a_buscar']
+            origenes = Vuelos.objects.filter(aeropuerto_origen__icontains=origen_a_buscar)
+        return render(request, 'AppAerolineas/04_1_vuelo_list.html', {'vuelos':origenes})
+
+
+
+def vuelo_destino_search(request):
+    if request.method == "GET":
+        search_form = BuscarDestinoForm()
+        return render(request, 'AppAerolineas/04_5_vuelo_search_destino.html', {'search_form':search_form})
+    elif request.method == "POST":
+        search_form = BuscarDestinoForm(request.POST)
+        if search_form.is_valid():
+            destino_a_buscar = search_form.cleaned_data['destino_a_buscar']
+            destinos = Vuelos.objects.filter(aeropuerto_destino__icontains=destino_a_buscar)
+        return render(request, 'AppAerolineas/04_1_vuelo_list.html', {'vuelos':destinos})

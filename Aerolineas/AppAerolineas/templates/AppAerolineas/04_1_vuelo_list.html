@@ -1,0 +1,60 @@
+{% extends "AppAerolineas/00_index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+<div class="container">    
+  
+  <div class="row">
+    <div class="col">
+      {% url 'agregar_vuelo' as agregar_url %}
+      {% url 'vuelo_search' as buscarvuelo_url %}
+      {% url 'origen_search' as buscarorigen_url %}
+      {% url 'destino_search' as buscardestino_url %}
+      {% bootstrap_button "NUEVO" button_class="btn-success" button_type="link" href=agregar_url %} 
+      {% bootstrap_button "BUSCAR VUELO" button_class="btn-success" button_type="link" href=buscarvuelo_url %}
+      {% bootstrap_button "BUSCAR ORIGEN" button_class="btn-success" button_type="link" href=buscarorigen_url %}
+      {% bootstrap_button "BUSCAR DESTINO" button_class="btn-success" button_type="link" href=buscardestino_url %}
+    <div>
+  <div>
+
+  <div class="row">
+    <div class="col">
+        {% if vuelos %}
+        <table class="table">
+            <thead>
+                <th scope="col">ID</th>
+                <th scope="col">AEROLINEA</th>
+                <th scope="col">NUMERO</th>
+                <th scope="col">FECHA</th>
+                <th scope="col">HORA</th>
+                <th scope="col">ORIGEN</th>
+                <th scope="col">DESTINO</th>
+                <th scope="col">DURACION</th>
+            </thead>
+        
+            {% for v in vuelos %}
+
+            <tbody>
+                <tr>
+                    <th scope="row">{{v.id}} </th>
+                    <td> {{v.aerolinea_siglas}} </td>
+                    <td> {{v.vuelo_numero}} </td>
+                    <td> {{v.fecha_vuelo}} </td>
+                    <td> {{v.hora_vuelo}} </td>
+                    <td> {{v.aeropuerto_origen}} </td>
+                    <td> {{v.aeropuerto_destino}} </td>
+                    <td> {{v.duracion_vuelo}} </td>
+                    {% url 'borrar_vuelo' identity=v.id as borrar_url %}
+                    <td>{% bootstrap_button "BORRAR" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}</td>
+                </tr>  
+            </tbody>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>NO TIENE VUELOS CARGADAS</p>
+        {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
