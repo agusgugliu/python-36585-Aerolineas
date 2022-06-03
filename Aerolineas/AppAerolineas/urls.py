@@ -9,6 +9,7 @@ urlpatterns = [
     path('borrar_aeropuerto/<identity>', views.aeropuertos_delete, name='borrar_aeropuerto'),
     path('buscar_aeropuerto_pais/', views.pais_aerop_search, name="pais_aerop_search"),
     path("buscar_aeropuerto_prov/", views.prov_aerop_search, name="prov_aerop_search"),
+    path("actualizar_aeropuerto/", views.aeropuerto_upd, name="upd_aeropuerto"),
     
     path('aerolineas/', views.aerolineas_list, name = 'aerolineas'),
     path('agregar_aerolinea/', views.aerolineas_add, name='agregar_aerolinea'),

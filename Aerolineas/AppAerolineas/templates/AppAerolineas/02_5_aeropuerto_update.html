@@ -1,0 +1,13 @@
+{% extends "AppAerolineas/00_index.html" %}
+
+{% load bootstrap5 %}
+
+{% block cuerpo %}
+
+    {% for a in aeropuertos %}
+        <li> {{a}}</li>
+        <button>
+            <a href="{% url 'upd_aeropuerto' a.id %}">Editar</a>
+        </button>
+
+{% endblock %}
