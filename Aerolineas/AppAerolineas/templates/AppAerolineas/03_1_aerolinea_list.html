@@ -23,10 +23,10 @@
             <thead>
                 <th scope="col">ID</th>
                 <th scope="col">NOMBRE</th>
-                <th scope="col">SIGLAS</th>
+                <!--<th scope="col">SIGLAS</th>-->
                 <th scope="col">PAIS</th>
                 <th scope="col">ALIANZA</th>
-                <th scope="col">AÑO FUNDACION</th>
+                <th scope="col">AÑO</th>
             </thead>
         
             {% for a in aerolineas %}
@@ -34,8 +34,8 @@
             <tbody>
                 <tr>
                     <th scope="row">{{a.id}} </th>
-                    <td> {{a.nombre}} </td>
-                    <td> {{a.siglas}} </td>
+                    <td> <strong>{{a.nombre}}</strong> ({{a.siglas}})</td>
+                    <!--<td> {{a.siglas}} </td>-->
                     <td> {{a.sede}} </td>
                     <td> {{a.alianza}} </td>
                     <td> {{a.año_fundacion}} </td>

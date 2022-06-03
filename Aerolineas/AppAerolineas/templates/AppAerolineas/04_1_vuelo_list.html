@@ -24,8 +24,8 @@
         <table class="table">
             <thead>
                 <th scope="col">ID</th>
-                <th scope="col">AEROLINEA</th>
-                <th scope="col">NUMERO</th>
+                <!--<th scope="col">AEROLINEA</th>-->
+                <th scope="col">VUELO</th>
                 <th scope="col">FECHA</th>
                 <th scope="col">HORA</th>
                 <th scope="col">ORIGEN</th>
@@ -38,8 +38,8 @@
             <tbody>
                 <tr>
                     <th scope="row">{{v.id}} </th>
-                    <td> {{v.aerolinea_siglas}} </td>
-                    <td> {{v.vuelo_numero}} </td>
+                    <!--<td> {{v.aerolinea_siglas}} </td>-->
+                    <td> <strong>{{v.aerolinea_siglas}}-{{v.vuelo_numero}}</strong> </td>
                     <td> {{v.fecha_vuelo}} </td>
                     <td> {{v.hora_vuelo}} </td>
                     <td> {{v.aeropuerto_origen}} </td>

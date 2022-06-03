@@ -23,11 +23,11 @@
             <thead>
                 <th scope="col">ID</th>
                 <th scope="col">NOMBRE</th>
-                <th scope="col">SIGLAS</th>
+                <!--<th scope="col">SIGLAS</th>-->
                 <th scope="col">PAIS</th>
                 <th scope="col">PROVINCIA</th>
                 <th scope="col">INTERNACIONAL</th>
-                <th scope="col">AÑO INAUGURACION</th>
+                <th scope="col">AÑO</th>
             </thead>
         
             {% for a in aeropuertos %}
@@ -35,11 +35,17 @@
             <tbody>
                 <tr>
                     <th scope="row">{{a.id}} </th>
-                    <td> {{a.nombre}} </td>
-                    <td> {{a.siglas}} </td>
+                    <td><strong>{{a.nombre}}</strong> ({{a.siglas}}) </td>
+                    <!--<td> {{a.siglas}} </td>-->
                     <td> {{a.pais}} </td>
                     <td> {{a.estado}} </td>
-                    <td> {{a.internacional}} </td>
+                    <td> 
+                      {% if a.internacional == 'SI' %}
+                        <p style="color:green;">✓</p>
+                      {% else %}
+                      <p style="color:red;">✘</p>
+                      {% endif %}
+                    </td>
                     <td> {{a.año_inauguracion}} </td>
                     {% url 'borrar_aeropuerto' identity=a.id as borrar_url %}
                     <td>{% bootstrap_button "BORRAR" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}</td>
