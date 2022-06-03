@@ -1,59 +1,25 @@
-{% load bootstrap5 %}
+{% extends 'AppAerolineas/00_index.html' %}
+{% load static %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript %}
+{% block cuerpo %}
 
-{# Display django.contrib.messages as Bootstrap alerts #}
-{% bootstrap_messages %}
-
-<ul class="nav bg-dark fixed">
-    <li class="nav-item">
-      <p style="color:white;font-size: large;">Portal de Vuelos</p>
-    </li>
-  </ul>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Principal</title>
-</head>
-<body style="background-image: url('https://i.postimg.cc/QdVM0Z2k/background.jpg'); background-repeat:no-repeat;background-attachment:fixed;background-size:100% 100%;">
-    <img src="https://jobs.coderhouse.com/assets/logos_coderhouse.png" alt="Logo de CoderHouse" height="100" width="325">
-    <h1 style="color:white;background-color: black;">Bienvenido al Portal de Vuelos</h1>
-    
-    <br><br>
-    <a href="{%url  'aeropuertos'%}">
-        <img 
-        src="https://i.postimg.cc/Dyv04X5N/airports.png"
-        alt="Aeropuertos"
-        width="150" 
-        height="150">
-     </a>
-     <br><br><br>
-    <a href="{%url  'aerolineas'%}">
-        <img src="https://i.postimg.cc/1Rc4zH06/airlines.png"
-        alt="Aerolineas"
-        width="150" 
-        height="150">
-     </a>
-     <br><br><br>
-    <a href="{%url  'vuelos'%}">
-        <img src="https://i.postimg.cc/GhX2Fm5m/flights.png"
-        alt="Vuelos"
-        width="150" 
-        height="150">
-     </a>
-</body>
-</html>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-xl-6">
+                    <div class="text-center text-white">
+                        <!-- Page heading-->
+                        <img src="https://res.cloudinary.com/hdsqazxtw/image/upload/v1579032128/coder-logo-white_t41xzb.png" alt="Logo de CoderHouse" width="475" height="90"><br><br>
+                        <h4>Bienvenido al Entregable Final de</h4><br>
+                        <h2>Python-36585 (CoderHouse)</h2><br>
+                        <!--<h5>Acceda a los contenidos de Aeropuertos, Aerolineas y Vuelos siguiendo la barra de navegación.</h5>-->
+                        <br><a class="btn btn-primary" href="admin">Administración</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
 
-<!-- <FOOTER> -->
-  <ul class="nav bg-dark fixed-bottom justify-content-center">
-    <li class="nav-item">
-      <a class="nav-link active" href="https://github.com/agusgugliu">GitHub @ Agustín Gugliuzza Piccinini - {% now 'd/m/Y' %}</a>
-    </li>
-  </ul>
+{% endblock %}
