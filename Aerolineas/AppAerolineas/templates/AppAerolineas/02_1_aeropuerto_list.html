@@ -41,7 +41,7 @@
                     <td> {{a.estado}} </td>
                     <td> {{a.internacional}} </td>
                     <td> {{a.año_inauguracion}} </td>
-                    {% url 'aeropuertos_delete' identificador=a.id as borrar_url %}
+                    {% url 'borrar_aeropuerto' identity=a.id as borrar_url %}
                     <td>{% bootstrap_button "BORRAR" size="sm" button_class="btn-danger" button_type="link" href=borrar_url %}</td>
                 </tr>  
             </tbody>
